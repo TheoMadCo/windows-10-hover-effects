@@ -1,0 +1,179 @@
+<html lang="en">
+
+<head>
+    <title>Windows hover effect</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            color: rgb(0, 0, 0);
+            font-family: 'Helvetica', 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: rgb(0, 0, 0);
+            font-size: 2rem;
+            margin: 2rem;
+            background:
+                linear-gradient(
+                    to right,
+                    rgba(100, 200, 200, 1),
+                    rgba(100, 200, 200, 1)
+                ),
+                linear-gradient(
+                    to right,
+                    rgba(255, 0, 0, 1),
+                    rgba(255, 0, 180, 1),
+                    rgba(0, 100, 200, 1)
+            );
+            background-size: 100% 3px, 0 3px;
+            background-position: 100% 100%, 0 100%;
+            background-repeat: no-repeat;
+            transition: background-size 400ms;
+        }
+
+        h1:hover {
+            background-size: 0 3px, 100% 3px;
+        }
+
+        .info {
+            border: 1px solid white;
+            letter-spacing: 2px;
+            color: white;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: stretch;
+            text-align: center;
+            grid-gap: 1rem;
+            padding: 5rem;
+            box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
+            border-radius: 20px;
+        }
+
+        .card {
+            padding: 2rem;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            background: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            border: 1px solid transparent;
+            z-index: 4;
+            box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
+        }
+
+        /* dark mode */
+        @media (prefers-color-scheme: dark) {
+            * {
+                color: rgb(255, 255, 255);
+            }
+
+            body {
+                background-color: rgb(48, 48, 48);
+            }
+
+            h1 {
+                color: rgb(255, 255, 255);
+            }
+
+            p {
+                color: rgb(255, 255, 255);
+            }
+
+            .info {
+                border: 1px solid rgb(54, 54, 54);
+                color: rgb(0, 0, 0);
+            }
+
+            .card {
+                background: rgb(54, 54, 54);
+                color: rgb(255, 255, 255);
+                border: 1px solid transparent;
+                border-radius: 0px;
+            }
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        body-dark {
+            background-color: rgb(48, 48, 48);
+        }
+
+        h1-dark {
+            color: rgb(255, 255, 255);
+        }
+
+        .info-dark {
+            border: 1px solid rgb(54, 54, 54);
+            color: rgb(0, 0, 0);
+        }
+
+        .card-dark {
+            background: rgb(54, 54, 54);
+            color: rgb(255, 255, 255);
+            border: 1px solid transparent;
+            border-radius: 0px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Windows 10 Button Hover Effect</h1>
+
+    <div class="info">
+        <div class="card" id="1">Hover here to see the magic happen</div>
+        <div class="card" id="2">Hover here to see the magic happen</div>
+        <div class="card" id="3">Hover here to see the magic happen</div>
+        <div class="card" id="4">Hover here to see the magic happen</div>
+        <div class="card" id="5">Hover here to see the magic happen</div>
+        <div class="card" id="6">Hover here to see the magic happen</div>
+        <div class="card" id="7">Hover here to see the magic happen</div>
+        <div class="card" id="8">Hover here to see the magic happen</div>
+        <div class="card" id="9">Hover here to see the magic happen</div>
+    </div>
+    <p>The theme is defined according to the user's system preference</p>
+
+    <script>
+        document.querySelectorAll(".card").forEach((b) => {
+            console.log(b);
+            b.onmouseleave = (e) => {
+                //IF DARK MODE
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    e.target.style.background = "rgb(54,54,54)";
+                    e.target.style.borderImage = null;
+                } else {
+                    e.target.style.background = "rgb(255,255,255)";
+                    e.target.style.borderImage = null;
+                }
+            };
+
+            b.addEventListener("mousemove", (e) => {
+                //set different behavior in case of dark mode
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left; //x position within the element.
+                const y = e.clientY - rect.top; //y position within the element.
+                // IF DARK MODE
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    e.target.style.background = `radial-gradient(circle at ${x}px ${y}px , rgba(255,255,255,0.2),rgba(255,255,255,0) )`;
+                    e.target.style.borderImage = `radial-gradient(20% 85% at ${x}px ${y}px ,rgba(255,255,255,0.7),rgba(255,255,255,0.1) ) 1 / 1px / 0px stretch `;
+                } else {
+                    e.target.style.background = `radial-gradient(circle at ${x}px ${y}px , rgba(255,255,255,0.2),rgba(255,255,255,0) )`;
+                    e.target.style.borderImage = `radial-gradient(20% 75% at ${x}px ${y}px ,rgba(255,255,255,0.7),rgba(255,255,255,0.1) ) 1 / 1px / 0px stretch `;
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
